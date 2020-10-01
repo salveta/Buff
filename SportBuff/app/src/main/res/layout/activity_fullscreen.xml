@@ -10,7 +10,7 @@
          android:fitsSystemWindows. -->
 
     <com.buffup.sdk.ui.BuffView
-        android:id="@+id/buff_view"
+        android:id="@+id/buffView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <VideoView
