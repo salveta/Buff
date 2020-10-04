@@ -39,6 +39,7 @@ class BuffView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         vModel.buff.observe(context as LifecycleOwner, Observer { buff ->
             when(buff.status){
                 Resource.Status.SUCCESS -> showBuff(buff.data as BuffResultModelView)
+                Resource.Status.ERROR -> showError()
             }
         })
 
@@ -84,6 +85,10 @@ class BuffView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         questionTimeProgress.max = buff.timeToShow
         vModel.setCountDownTimer(buff.timeToShow.toLong() *MILLIS_TO_COUNT_DOWN)
         bufferAnswersAdapter?.buffAnswers = buff.answers
+    }
+
+    private fun showError(){
+        // TODO check if needed to show an error
     }
 
     private fun updateValues(secondsUntilFinished : Long ){

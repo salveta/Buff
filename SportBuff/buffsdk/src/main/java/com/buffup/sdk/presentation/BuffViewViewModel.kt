@@ -42,13 +42,14 @@ class BuffViewViewModel(private val getBuff: GetBuff): ViewModel(){
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                initTotalBuffer++
                 doBufferCall()
             }
         }.start()
     }
 
     private fun doBufferCall(){
+        initTotalBuffer++
+
         viewModelScope.launch {
             getBuff(
                 initTotalBuffer,
@@ -66,8 +67,8 @@ class BuffViewViewModel(private val getBuff: GetBuff): ViewModel(){
         }
     }
 
-    private fun getError(BuffError: BuffError) {
-        // TODO check if needed to show an error
+    private fun getError(buffError: BuffError) {
+        _buff.value = Resource.error(buffError)
     }
 
     fun setCountDownTimer(timeToShow: Long) {
