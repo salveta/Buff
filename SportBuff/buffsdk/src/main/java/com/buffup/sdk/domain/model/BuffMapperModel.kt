@@ -21,7 +21,7 @@ fun AnswerEntity.toModel(): AnswerModel{
     return AnswerModel(
         buffId = buffId,
         id = id,
-        image = image,
+        image = image.mapValues { images -> images.value.toModel() },
         title = title
     )
 }
