@@ -9,10 +9,6 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
-    <com.buffup.sdk.ui.BuffView
-        android:id="@+id/buffView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <VideoView
         android:id="@+id/video"
         android:layout_width="match_parent"
@@ -22,6 +18,9 @@
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    </com.buffup.sdk.ui.BuffView>
+    <com.buffup.sdk.presentation.BuffView
+        android:id="@+id/buff_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

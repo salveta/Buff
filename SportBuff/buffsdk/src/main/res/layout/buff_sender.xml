@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/rltSender"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="4dp"
     android:orientation="horizontal">
 
-    <LinearLayout
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lnySenderData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/light_bg"
         android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded">
 
         <ImageView
-            android:id="@+id/sender_image"
+            android:id="@+id/senderImage"
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:layout_gravity="center_vertical"
-            android:padding="4dp" />
+            android:padding="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/sender_name"
+            android:id="@+id/senderName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
             android:padding="4dp"
             android:textColor="@color/test_color_dark"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/senderImage"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/buff_close"
+        android:id="@+id/buffClose"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/ic_btn_close" />
+        android:layout_alignEnd="@+id/lnySenderData"
+        android:background="@drawable/ic_btn_close"
+        app:layout_constraintStart_toEndOf="@+id/lnySenderData"
+        app:layout_constraintTop_toTopOf="@+id/lnySenderData"
+        android:layout_marginStart="20dp"/>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

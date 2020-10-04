@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="progress_time_color">#FFF35662</color>
+    <color name="selected_answer">#3399FF</color>
     <color name="dark_overlay">#BE1B1E1E</color>
     <color name="light_overlay">#A6FFFFFF</color>
     <color name="test_color_dark">#31323A</color>
