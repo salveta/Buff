@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.buffup.sdk.data.api.BuffError
-import com.buffup.sdk.domain.model.BuffResultModel
 import com.buffup.sdk.domain.usecase.GetBuff
 import com.buffup.sdk.presentation.modelView.BuffResultModelView
 import com.buffup.sdk.presentation.modelView.toModelView
@@ -21,7 +20,7 @@ class BuffViewViewModel(private val getBuff: GetBuff): ViewModel(){
     private var initTotalBuffer = 0
     private var totalBuffer = 5
 
-    private val _buff = MutableLiveData< Resource<BuffResultModelView>>()
+    private val _buff = MutableLiveData<Resource<BuffResultModelView>>()
     val buff: LiveData<Resource<BuffResultModelView>> get() = _buff
 
     private val _setCountDownTimer: MutableLiveData<Event<Long>> by lazy { MutableLiveData<Event<Long>>() }
@@ -53,21 +52,21 @@ class BuffViewViewModel(private val getBuff: GetBuff): ViewModel(){
         viewModelScope.launch {
             getBuff(
                 initTotalBuffer,
-                onGetErrorBuff = {getError(it)},
-                onGeBuffSuccess = {getBuffs(it)}
+                onGetErrorBuff = {setError(it)},
+                onGeBuffSuccess = {getBuffs(it.toModelView())}
             )
         }
     }
 
-    private fun getBuffs(buff: BuffResultModel){
-        _buff.value = Resource.success(buff.toModelView())
+    private fun getBuffs(buff: BuffResultModelView){
+        showBuff(buff)
 
         if(initTotalBuffer <= totalBuffer) {
             getBufferFromApi()
         }
     }
 
-    private fun getError(buffError: BuffError) {
+    private fun setError(buffError: BuffError) {
         _buff.value = Resource.error(buffError)
     }
 
@@ -75,11 +74,11 @@ class BuffViewViewModel(private val getBuff: GetBuff): ViewModel(){
         countDownTimer = object : CountDownTimer(timeToShow, MILLIS_TO_COUNT_DOWN) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsUntilFinished : Long = ceil(millisUntilFinished.toDouble() / MILLIS_TO_COUNT_DOWN).toLong()
-                _setCountDownTimer.value = Event((secondsUntilFinished))
+                updateCountdownTimer(secondsUntilFinished)
             }
 
             override fun onFinish() {
-                _finishCountDownTimer.value = Event((Unit))
+                finishCountDownTimer()
             }
         }.start()
     }
@@ -96,9 +95,25 @@ class BuffViewViewModel(private val getBuff: GetBuff): ViewModel(){
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                _hideBuff.value = Event((Unit))
+                hideValue()
             }
         }.start()
+    }
+
+    fun showBuff(buff: BuffResultModelView){
+        _buff.value = Resource.success(buff)
+    }
+
+    fun updateCountdownTimer(secondsUntilFinished : Long) {
+        _setCountDownTimer.value = Event((secondsUntilFinished))
+    }
+
+    fun finishCountDownTimer(){
+        _finishCountDownTimer.value = Event((Unit))
+    }
+
+    fun hideValue(){
+        _hideBuff.value = Event((Unit))
     }
 
     companion object {

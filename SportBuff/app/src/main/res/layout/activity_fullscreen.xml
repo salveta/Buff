@@ -19,7 +19,7 @@
         android:textStyle="bold" />
 
     <com.buffup.sdk.presentation.BuffView
-        android:id="@+id/buff_view"
+        android:id="@+id/buffView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

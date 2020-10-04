@@ -16,4 +16,8 @@ class FullscreenActivity : AppCompatActivity() {
             video.start()
         }
     }
+
+    companion object {
+        var layout: Int = 0
+    }
 }
