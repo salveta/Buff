@@ -3,6 +3,7 @@ package com.buffup.sdk.presentation
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -75,6 +76,8 @@ class BuffView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     private fun showBuff(buff: BuffResultModelView){
         cnsContainerBuff.visible()
+        doAnimationBuff(R.anim.entry_anim)
+
         senderName.text = context.getString(
             R.string.author_name,
             buff.author.firstName, buff.author.lastName
@@ -104,6 +107,7 @@ class BuffView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     private fun hideBuff(){
         cnsContainerBuff.invisible()
+        doAnimationBuff(R.anim.exit_anim)
         cancelCountDown()
     }
 
@@ -113,6 +117,11 @@ class BuffView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     private fun stopCountDown(){
         cancelCountDown()
+    }
+
+    private fun doAnimationBuff(animationType: Int){
+        val animation = AnimationUtils.loadAnimation(context, animationType)
+        cnsContainerBuff.startAnimation(animation)
     }
 
     companion object {
